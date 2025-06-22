@@ -1,0 +1,1 @@
+import{T as r,k as e}from"./chunk-GCLD3WRZ.js";var n=(()=>{class t{constructor(){this.userName=new e(localStorage.getItem("username")||"")}static{this.\u0275fac=function(o){return new(o||t)}}static{this.\u0275prov=r({token:t,factory:t.\u0275fac,providedIn:"root"})}}return t})();export{n as a};
