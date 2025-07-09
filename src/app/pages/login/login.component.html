@@ -8,92 +8,75 @@
           <p-inputGroupAddon>
             <i class="pi pi-envelope"></i>
           </p-inputGroupAddon>
-          <input
-            pInputText
-            formControlName="email"
-            placeholder="email"
-            [autofocus]="true"
-          />
+          <input pInputText formControlName="email" placeholder="email" [autofocus]="true" />
         </p-inputGroup>
         <div class="validation-msg">
           @if (email.touched&& email.dirty) { @if (email.getError('required')) {
-          <p-messages
-            [value]="[
+          <p-messages [value]="[
               {
                 severity: 'error',
                 summary: 'validation error',
                 detail: 'email is required'
               }
-            ]"
-            [enableService]="false"
-            [closable]="false"
-          />
+            ]" [enableService]="false" [closable]="false" />
           } @if (email.getError('email')) {
-          <p-messages
-            [value]="[
+          <p-messages [value]="[
               {
                 severity: 'error',
                 summary: 'validation error',
                 detail: 'email not valid'
               }
-            ]"
-            [enableService]="false"
-            [closable]="false"
-          />
+            ]" [enableService]="false" [closable]="false" />
           } }
         </div>
       </div>
       <!-- Password -->
       <div class="field">
-        <p-inputGroup>
-          <p-inputGroupAddon>
-            <i class="pi pi-lock"></i>
-          </p-inputGroupAddon>
-          <input
-            pInputText
-            type="password"
-            formControlName="password"
-            placeholder="password"
-          />
-        </p-inputGroup>
+        <div class="position-relative">
+          <p-inputGroup>
+            <!-- أيقونة القفل -->
+            <p-inputGroupAddon>
+              <i class="pi pi-lock"></i>
+            </p-inputGroupAddon>
+
+            <!-- حقل الباسورد مع dynamic type -->
+            <input pInputText [type]="showPassword ? 'text' : 'password'" formControlName="password"
+              placeholder="Password" />
+
+            <p-inputGroupAddon>
+              <i class="pi" [ngClass]="showPassword ? 'pi-eye-slash' : 'pi-eye'" style="cursor: pointer"
+                (click)="togglePassword()"></i>
+            </p-inputGroupAddon>
+
+          </p-inputGroup>
+        </div>
+
         <div class="validation-msg">
           @if (password.dirty && password.touched) { @if
           (password.getError('required')) {
-          <p-messages
-            [value]="[
+          <p-messages [value]="[
               {
                 severity: 'error',
                 summary: 'validation error',
                 detail: 'password is required'
               }
-            ]"
-            [enableService]="false"
-            [closable]="false"
-          />
+            ]" [enableService]="false" [closable]="false" />
           } @if (password.getError('minlength')) {
-          <p-messages
-            [value]="[
+          <p-messages [value]="[
               {
                 severity: 'error',
                 summary: 'validation error',
-                detail: 'must be at least 3 char'
+                detail: 'must be at least 8 char'
               }
-            ]"
-            [enableService]="false"
-            [closable]="false"
-          />
-          } @if (password.getError('maxlength')) {
-          <p-messages
-            [value]="[
+            ]" [enableService]="false" [closable]="false" />
+          } @if(password.getError('pattern')) {
+          <p-messages [value]="[
               {
                 severity: 'error',
                 summary: 'validation error',
-                detail: 'cannot exceed 20 char'
+                detail: 'Password must have a capital letter, lowercase letter, number, and special character '
               }
-            ]"
-            [enableService]="false"
-            [closable]="false"
-          />
+            ]" [enableService]="false" [closable]="false" />
           } }
         </div>
       </div>

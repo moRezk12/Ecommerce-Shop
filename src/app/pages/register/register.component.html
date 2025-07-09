@@ -14,6 +14,7 @@
             placeholder="Username"
             [autofocus]="true"
           />
+
         </p-inputGroup>
         <div class="validation-smg">
           @if (name.dirty && name.touched) { @if (name.getError('required')) {
@@ -100,10 +101,14 @@
           </p-inputGroupAddon>
           <input
             pInputText
-            type="password"
+            [type]="showPassword ? 'text' : 'password'"
             formControlName="password"
             placeholder="password"
           />
+          <p-inputGroupAddon>
+              <i class="pi" [ngClass]="showPassword ? 'pi-eye-slash' : 'pi-eye'" style="cursor: pointer"
+                (click)="togglePassword()"></i>
+            </p-inputGroupAddon>
         </p-inputGroup>
         <div class="validation-msg">
           @if (password.dirty && password.touched) { @if
@@ -125,19 +130,19 @@
               {
                 severity: 'error',
                 summary: 'validation error',
-                detail: 'must be at least 3 char'
+                detail: 'must be at least 8 char'
               }
             ]"
             [enableService]="false"
             [closable]="false"
           />
-          } @if (password.getError('maxlength')) {
+          } @if (password.getError('pattern')) {
           <p-messages
             [value]="[
               {
                 severity: 'error',
                 summary: 'validation error',
-                detail: 'cannot exceed 20 char'
+                detail: 'Password must have a capital letter, lowercase letter, number, and special character '
               }
             ]"
             [enableService]="false"
@@ -157,8 +162,12 @@
             pInputText
             formControlName="rePassword"
             placeholder="rePassword"
-            type="password"
+            [type]="showrePassword ? 'text' : 'password'"
           />
+          <p-inputGroupAddon>
+              <i class="pi" [ngClass]="showrePassword ? 'pi-eye-slash' : 'pi-eye'" style="cursor: pointer"
+                (click)="togglerePassword()"></i>
+            </p-inputGroupAddon>
         </p-inputGroup>
         <div class="validation-msg">
           @if (rePassword.dirty && rePassword.touched) { @if

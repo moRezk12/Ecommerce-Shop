@@ -13,11 +13,12 @@ import { AuthService } from '../../core/service/auth.service';
 import { NotifecationsService } from '../../core/service/notifecations.service';
 import { UserDataService } from '../../core/service/user-data.service';
 import { SharedModule } from '../../shared/module/shared/shared.module';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule , CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -49,9 +50,7 @@ export class RegisterComponent {
     this.email = new FormControl('', [Validators.required, Validators.email]);
     this.password = new FormControl('', [
       Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(20),
-    ]);
+      Validators.minLength(8),Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/)]);
     this.rePassword = new FormControl('', [
       Validators.required,
       this.passwordMatch(this.password),
@@ -105,4 +104,16 @@ export class RegisterComponent {
       },
     });
   }
+
+  showPassword: boolean = false;
+  showrePassword: boolean = false;
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+  togglerePassword() {
+    this.showrePassword = !this.showrePassword;
+  }
+
+
 }

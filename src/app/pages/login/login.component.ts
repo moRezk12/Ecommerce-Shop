@@ -6,11 +6,12 @@ import { AuthService } from '../../core/service/auth.service';
 import { NotifecationsService } from '../../core/service/notifecations.service';
 import { UserDataService } from '../../core/service/user-data.service';
 import { SharedModule } from '../../shared/module/shared/shared.module';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule , CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -34,9 +35,7 @@ export class LoginComponent {
     this.email = new FormControl('', [Validators.required, Validators.email]);
     this.password = new FormControl('', [
       Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(20),
-    ]);
+      Validators.minLength(8),Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/)]);
   }
 
   initFormGroupe(): void {
@@ -73,4 +72,13 @@ export class LoginComponent {
       },
     });
   }
+
+
+  showPassword: boolean = false;
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+
 }
